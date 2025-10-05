@@ -1,0 +1,120 @@
+store data in db
+write some logic to fetch that data
+show it in the front end
+
+DATABASE
+
+in settings.py
+db.sqlite3
+
+to create tables and fields we use models.py
+employees>models.py
+
+class Employee(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    photo= models.ImageField(upload_to='images')
+    designation = models.CharField(max_length=100)
+    email_address = models.EmailField(max_length=100, unique=True)
+    phone_number = models.CharField(max_length=12, blank=True) #bank=True to make optional
+    created_at = models.DateTimeField(auto_now_add=True) #auto_now_add --one time modification when it is created and saved for the first time
+    updated_at = models.DateTimeField(auto_now=True) # whenever u need a feld to change the instance is saved with current time when inntance is modified
+
+when model is created now u need to migrate them, that is add the new field in the db
+
+add our app name in settings.py --make sure
+
+pillow is a package thatt is used to manage the img files in the django application
+
+django.core.management.base.SystemCheckError: SystemCheckError: System check identified some issues:
+
+ERRORS:
+employees.Employee.photo: (fields.E210) Cannot use ImageField because Pillow is not installed.
+        HINT: Get Pillow at https://pypi.org/project/Pillow/ or run command "python -m pip install Pillow".  
+
+python -m pip install Pillow
+
+To create the database tables we need to create two commands
+
+one is the 
+python manage.py makemigrations
+an other one is 
+python manage.py migrate
+
+run this -->python manage.py makemigrations
+it will read read models.py
+what this command dose is that it look for changes and modifications any newly created classes
+and it create a migration file
+
+so inside employees>migrations>0001_initial.py -- this generated swl
+
+and when we run python manage.py migrate it will execute that sql
+Applying employees.0001_initial... OK
+
+now start the server
+python manage.py runserver
+
+now hit the url
+http://127.0.0.1:8000/admin/
+
+still no changes are reflected
+
+so go employees>admin.py
+and register the emp models
+from .models import Employee
+# Register your models here.
+admin.site.register(Employee)
+
+now refresh the site
+
+now the changes are reflected
+
+now the employee is added
+but the employee hyperlink has to be edited to reflect fname and lname
+and the image also hyperlink is not working
+
+so this has to be fixed
+
+------
+images folder was created in root
+
+to load media files in the browser we have a special config
+
+create folder named media in the root folder
+delete the images folder which was created when we upload the photo 
+photo= models.ImageField(upload_to='images')
+
+then we go to settings.py
+
+go to bottom of the file
+
+#Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
+
+Now go to urls.py and call the static fn , to serve files uploaded by a user during development
+https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+after adding this
+go to the http://127.0.0.1:8000/admin/
+go to employees
+
+and then open the existing employee 
+and then reupload the image since we deleted the previous from images folder
+
+http://127.0.0.1:8000/media/images/liz_pp.jpeg
+now its loading correctly
+if u see now an images folder has been created in the media folder
+
+now fixing Employee object (1)
+
+that's why we will put the string representation of the model
+
+def __str__(self):
+    return(self.firstname+" "+self.lastname)

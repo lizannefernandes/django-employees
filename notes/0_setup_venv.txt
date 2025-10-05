@@ -1,0 +1,18 @@
+Open gitbash in django folder
+pip freeze --to see all the packages
+python -m venv venv
+source venv/scripts/activate
+
+
+$ pip freeze
+(venv) -- no packages, fresh space
+deactivate
+pip freeze -- all packages will be visible
+
+clear
+
+source venv/scripts/activate
+pip install django
+pip freeze
+
+

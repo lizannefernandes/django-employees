@@ -1,0 +1,42 @@
+django app is the python package that is specifically meant for using it in a django project
+
+it is a submodule of a project
+
+lets create an app
+python manage.py startapp employees
+
+employees folder will get created
+
+add our app name in settings.py
+
+INSTALLED_APPS 'employees',
+
+in a a django project we can have multiple apps
+we use apps to keep our code separately
+e commerce project
+authen orders payments
+write all the code in one all messy
+
+to overcome this problem we use apps
+for building a specific feature
+
+for the orders feature whatever the code url pattern business logic
+can be written in orders app
+
+admin.py is used to display models in admin panel where we can do crud operations
+
+
+apps.py
+help user to add any application level configurations for the app
+
+models.py
+essential field and behaviors of the data that u have the the db
+
+we create database tables and fields by writing the models classes in this file
+
+test.py
+used to run any test in ur django project
+views.py
+business logic of a specific app
+
+

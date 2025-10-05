@@ -1,0 +1,30 @@
+Bootstrap is a popular css framework for designing responsive and and mobile first websites
+
+in html we use css to style the website
+
+Bootstrap already has in-built styling, so dont have to write css manually
+you have to write the correct classes to your html tags.
+
+Bootstrap gives ready made components such as forms tables components
+
+To include Bootstrap in the django project include CDN
+Content Delivery Network
+
+It provides the necessary css and js to load the bootstrap components
+
+go to https://getbootstrap.com/
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+https://getbootstrap.com/docs/5.3/content/tables/
+
+copy the tables code and paste it in the body
+
+then add a div and then paste the table code inside the div becaue the passing and margin will comes
+    <div class="container pt-5"> -->pt means padding top
+        <h3>Employee list</h3>
+        <table class="table">
+
+
+

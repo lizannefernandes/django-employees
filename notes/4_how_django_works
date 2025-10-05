@@ -1,0 +1,21 @@
+MVT
+Model
+View 
+Template
+Design pattern = way of defining the rules of developing software applications
+
+Explanation for the MVT Diagram
+
+MVT Responisble for each and every db operation
+template is the user facing pattern
+model can talk to db
+view is bridge that tells the model that i need something from the db
+model gives view data and then it passes to template then the user can see it
+
+User accesses the application using URLS
+Checks the url patterns in urls.py
+if requested url exists it will go to the corresponding view where it has the function 
+eg path('profile/', views.profile)
+it goes to views.profile this fn contains the logic for what to do with the request, it says get the fname and lname from the db
+model gives the data back to view if it exists
+from the view we pass the data to the template and the user can see it

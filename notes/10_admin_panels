@@ -1,0 +1,23 @@
+to access the admin panel u have to go to the admin url
+mysite>urls.py
+
+path('admin/', admin.site.urls) 
+
+hit this url http://127.0.0.1:8000/admin/
+
+create a super user
+python manage.py createsuperuser
+djangoadmin
+lizferns160@gmail.com
+workAndme@!123
+
+Username (leave blank to use 'ldfernandes'): djangoadmin
+Email address: lizferns160@gmail.com
+Password: 
+Password (again):
+Superuser created successfully.
+
+python manage.py runserver
+hit this url http://127.0.0.1:8000/admin/
+
+Click on users > add user 

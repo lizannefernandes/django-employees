@@ -1,0 +1,14 @@
+To open a new Bash terminal in Visual Studio Code, follow these steps:
+
+Open the Command Palette:
+
+Press Ctrl+Shift+P (or Cmd+Shift+P on macOS) to open the Command Palette.
+Search for "Select Default Profile":
+
+Type Select Default Profile in the Command Palette and select it.
+Choose Git Bash:
+
+From the list of available terminal profiles, select Git Bash.
+Open a New Terminal:
+
+Go to the menu Terminal > New Terminal or press Ctrl+Shift+ to open a new terminal. It will now use Git Bash as the default shell.

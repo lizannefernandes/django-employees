@@ -1,0 +1,58 @@
+PROJECT LEVEL FILE STRUCTURE
+
+if __init__.py is present ,it tells the python interpreter that that directory is a python package and u can import modules from one package to another
+
+wsgi.py file concerns with the wsgi server and  it is used for deploying our application on the production server like apache or ingenix WSGI = WEB SERVER GATEWAY INTERFACE --> tells how the server should interact with the web application
+
+
+asgi.py (similar to wsgi)
+it comes with some additional functionality 
+ASGI = Asynchronous Server Gateway Interface
+
+urls.py
+contains all the endpoints we should have for our websites
+it tells the django that if the user comes with that url direct them to that particular website 
+
+settings.py
+most imp file
+used for adding all the config of or django project
+
+BASE_DIR = Path(__file__).resolve().parent.parent--> gets the root directory dynamically, in ourcase the root dir is 'django'
+
+SECRET_KEY = 'django-insecure-n+*drodhhtge2kxwo(49d+%^!q+5-lw!cyltjyi0w*s0=egf+_' --> used to generate hashes, -->django-insecure default secret key followed by 50 digit secret key
+
+DEBUG = True ----->dont' keep this on in production
+
+ALLOWED_HOSTS = [] --->domain names of ur website where u want to run ur project, u have to put the server ip address or the domain name in production mode otherwise u cannot this project
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+app is a package with the django modules, used to perform business logic
+a django project can have multiple apps
+with these multiple apps u can create reusable components based on what type of logic u r writing
+
+if u create an app in django u must register in INSTALLED_APPS section
+
+MIDDLEWARE is used to perform various functions in your application
+These sessions can be sessions security form production authentication etc
+django provides various inbuilt middleware and also allows us to create our own custom middleware
+
+The main url configs reside in this part =mysite.urls
+
+TEMPLATES responsible for rendering the frontend templates
+
+WSGI_APPLICATION = 'mysite.wsgi.application' -->tells django from where the wsgi application should run
+
+DATABASES-->default sqlite3
+
+AUTH_PASSWORD_VALIDATORS --> built-in password validatiors used to check the strngth of the users password
+
+STATIC_URL -->css images
+DEFAULT_AUTO_FIELD--> pk field type will be BigAutoField
+

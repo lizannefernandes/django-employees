@@ -1,0 +1,58 @@
+source venv/Scripts/activte -->in bash terminal in vscode
+
+python manage.py runserver
+
+http://127.0.0.1:8000/home
+
+create endpoint
+go to urls.py
+add  path('home/', views.home)
+
+NameError: name 'views' is not defined
+
+create views.py in mysite
+ from . import views
+
+create one function inside views
+
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse('Hello Word')
+
+now if u go back here http://127.0.0.1:8000/,  u dont have anything
+
+remove home and keep it blanks, which means home page, which will be blank, when u put empty string it means that after http://127.0.0.1:8000/'' we dont have anything
+
+    path('', views.home)
+
+
+def home(request):
+    return HttpResponse('This is our homepage')
+
+if we try to load all the html tags for our webpage inside the html HttpResponse, we will never be able to manage this FullyQualifiedErrorId
+
+That's where the template comes in 
+
+instead of using the HttpResponse we will render the template
+
+How to render the TEMPLATE?
+create a new folder called templates in the root
+inside this create a file called home.html
+and put this in it <h3>This is our homepage</h3>
+
+update the views.py that we had created earlier to print the home page contents
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+
+configure in setting.py
+go to TEMPLATES -->DIRS 
+pass the foldername
+
+'DIRS': ['templates'],
+1. home function will be called inside urls
+2. inside home fn we render the html which is inside templates/home.html
+3. and we have the html inside home.html

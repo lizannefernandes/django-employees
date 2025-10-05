@@ -1,0 +1,41 @@
+Create a css file in our project
+mysite/static/css/ --create static,css
+mysite/statis/images --create images
+
+create style.css under css folder
+body {
+    background-color:blue;
+}
+
+link this file inside the home.html
+
+also using img tag add the image to home.html
+
+it is not loading anything still
+
+Special config to serve the static files
+Goto settings.py
+go to static url
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR /'static/'
+STATICFILES_DIRS = [
+    'mysite/static'
+]
+
+go to home.html
+ontop of file, load the static
+{% load static %}
+
+in home.html
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+STATIC_ROOT
+collect static collects all the static files inthe static folder which is inside the mysite folder-- for deplpyment purpose-- used after the site has been depl on the server
+
+STATICFILES_DIR
+list of folders where django will search for additional static files when yo urun python manage.py runserver command
