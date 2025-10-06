@@ -1,0 +1,198 @@
+imagine the url pattern
+
+employees/4
+
+go to mysite>urls.py
+
+update the urlpatterns
+path('employees/', include('empolyees.urls')) employees is the app name and urls is the module name which we are going to create in the employees app
+
+
+by default app doesnt come with the urls module.
+
+
+in mysite>urls.property
+from django.urls import path, include
+
+whenever the user comes with this request 'employees/' then we are telling django that forward that request to,
+urls.py in employees folder
+
+here we are going to configure the url patterns again
+
+to configure url patterns again we need this path
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('<int:pk>', views.employee_detail),
+]
+
+now in employees>views create employee_detail view
+
+from django.shortcuts import render
+
+# Create your views here.
+def employee_details(request, pk):
+
+    we take the pk because inside the employees>urls.py, :
+    we are actually taking the pk so that is the reason we also need to receive the pk here because if u want to imagine that
+    works the request will actually go to 127.0.0.1:8000/employees/
+
+    1. employees/    path('employees/', include('empolyees.urls'))
+    2. empolyees.urls
+    3. and then we take the pk here : <int:pk>/ path('<int:pk>/', views.employee_detail)
+    4. this pk will go in the emp detail view as a parameter
+
+
+now in views.py employees
+
+def employee_details(request, pk):
+    here we need to fetch the employee detail which has the pk 
+    try:
+        employee = Employee.objects.get(pk=pk) get() fn to get one data from db, all fn to get all() data from database
+        currently we want to take only one data the pk which we are getting
+    except:
+        if the pk doesnt exist,
+        raise Http404
+
+now we will print the employee and see what we get
+    try:
+        employee = Employee.objects.get(pk=pk)
+        print(employee)
+    except:
+        raise Http404
+
+Now we hit the url http://127.0.0.1:8000/employees/1/
+but The view employees.views.employee_details didn't return an HttpResponse object. It returned None instead.
+we get this error because we are not returning HttpResponse
+
+so lets fix this
+
+check the console if u see the name is printed
+
+
+[06/Oct/2025 12:54:09] "GET /static/css/style.css HTTP/1.1" 304 0
+Lizanne Fernandes
+Internal Server Error: /employees/1/
+
+we are actually printing the name here
+
+that means for /1/ this is nothign  /employees/1/
+but if we put /2/ then we dont have the employee with emp id 2
+
+http://127.0.0.1:8000/employees/2/
+Page Not Found: /employees/2/ -->because we had deleted it from the db
+that means our request is going inside the except block,
+
+
+get_object_or_404 by default takes care of whether u got the employee with the correct id or 404 Error
+
+get_object_or_404 --> shorter way to write all this
+
+def employee_details(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    print(employee)
+    return HttpResponse(employee) -->return the Http response
+
+now load /1/
+
+on this page http://127.0.0.1:8000/employees/4/
+we see,
+Jane Doe
+
+
+Now let is render a proper html __package__
+
+so instead of return HttpResponse(employee)
+
+return render(request, 'employee_detail.html')
+
+the employee_detail.html does not exist in the templates so we have to add iter
+
+so we create it 
+under templates
+    <h4>This is the employee detail page</h4>
+
+now we will use bootstrap
+so we will copy the contents of the home.html and paste it in employee_detail.html
+
+now remove the table and change name from emp list to  employee_details
+
+keep the container and refresh the page
+
+now inside the container create a table with the class of card
+https://getbootstrap.com/docs/4.1/components/card/
+
+use the one under Images
+
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+
+now put the card in the center 
+add another class mx-auto
+
+        <div class="card mx-auto" style="width: 18rem;">
+
+now print the image
+fname, lname
+
+we dont have access to first name and last name inside employee_detail.html
+because we have taken the employee here but we are not passing the employee to the employee_detail.html
+
+def employee_details(request, pk):
+    //here employee = get_object_or_404(Employee, pk=pk)
+    print(employee)
+    return render(request, 'employee_detail.html')
+
+so we have to apss that using context
+
+inside views.py
+def employee_details(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    context = {
+        'employee' :employee,
+    }
+    return render(request, 'employee_detail.html', context)
+
+so now inside employee_detail.html
+
+remove the card-text
+
+        <p class="card-text">{{employee.first_name}} {{employee.last_name}}</p>
+        <p class="card-text">{{employee.email_address}}</p>
+now decrese the margin m-0
+
+<img class="card-img-top" src="{{employee.photo.url}}" alt="Employee Photo">
+
+.url because, the image tag, the sec attribute takes the path it wil not take the photo itself
+so thats why we set employee.photo.url
+
+now lets add a button to go back to home
+so inside the class
+        <a href="" class= "btn btn-primary">Back to Home</a>
+get the url from mysite>urls.py
+    path('', views.home, name='home'),
+
+now since we have set name='home'
+we can call this url inside the html page
+
+now when we click on back and come on home page
+
+we want to be able to click on the employee name and go to the employee details page
+
+go to urls.py in employees and here also put the name 
+    path('<int:pk>/', views.employee_details, name='employee_detail'),
+
+now go to home page
+and edit the hyperlink
+                <p class="card-text m-0"><a href="{% url 'employee_detail' %}">{{employee.first_name}} {{employee.last_name}}</a></p>
+
+
+
+

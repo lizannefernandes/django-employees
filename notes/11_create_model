@@ -1,4 +1,4 @@
-store data in db
+store data in db --on thispage will be storing 
 write some logic to fetch that data
 show it in the front end
 
